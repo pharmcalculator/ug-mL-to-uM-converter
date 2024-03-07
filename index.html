@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ug/mL vs uM Converter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .calculator {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .result {
+            background-color: lightblue;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        input[type="number"],
+        select {
+            font-size: 24px;
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function convertUnits() {
+            var valueInput = document.getElementById("value");
+            var unitSelect = document.getElementById("unit");
+            var mwInput = document.getElementById("molecular-weight");
+            var resultDiv = document.getElementById("result");
+
+            var value = parseFloat(valueInput.value);
+            var unit = unitSelect.value;
+            var mw = parseFloat(mwInput.value);
+            var result;
+            var resultUnit;
+
+            if (unit === "ug/mL") {
+                result = (value / mw) * 1000;
+                resultUnit = "uM";
+            } else if (unit === "uM") {
+                result = (value * mw) / 1000;
+                resultUnit = "ug/mL";
+            }
+
+            resultDiv.textContent = result.toFixed(3) + " " + resultUnit;
+        }
+    </script>
+</head>
+<body>
+    <div class="calculator">
+        <h1>ug/mL vs uM Converter</h1>
+        <label for="value">Value:</label>
+        <input type="number" id="value" step="any">
+        <label for="unit">Unit:</label>
+        <select id="unit">
+            <option value="ug/mL">ug/mL</option>
+            <option value="uM">uM</option>
+        </select>
+        <label for="molecular-weight">Molecular Weight:</label>
+        <input type="number" id="molecular-weight" step="any">
+        <button onclick="convertUnits()">Convert</button>
+        <div id="result" class="result"></div>
+    </div>
+</body>
+</html>
